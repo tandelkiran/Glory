@@ -1,0 +1,99 @@
+<!-- header -->
+<nav style="background-color: greenyellow;" class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#">KIRAN</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Search Name Filter -->
+<div class="mt-5 mb-2">
+  <div class="form-inline my-2 my-lg-0 m-2">
+    <input class="form-control mr-sm-2" type="text" #txtInput id="searchTxt" placeholder="Type Pokemone Name"
+      aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="onSubmit(txtInput.value)">Go</button>
+  </div>
+</div>
+
+<!-- Weakness Filter -->
+<div class="form-inline my-2 my-lg-0 m-5 ">
+  <select (change)="weaknessFilter($event)" class="form-control text-capitalize" id="exampleFormControlSelect1"
+    title="Select category">
+    <option value=''>Select Weakness</option>
+    <option value='Fire'>Fire</option>
+    <option value='Ice'>Ice</option>
+    <option value='Flying'>Flying</option>
+    <option value='Psychic'>Psychic</option>
+  </select>
+</div>
+
+<!-- Table -->
+<div class="table-responsive mt-2">
+  <table class="table m-2">
+    <thead>
+      <tr style="background-color:dodgerblue">
+        <th>Id</th>
+        <th>num</th>
+        <th>Name</th>
+        <th>Img</th>
+        <th>Type</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>candy</th>
+        <th>candy_count</th>
+        <th>egg</th>
+        <th>spawn_chance</th>
+        <th>avg_spawns</th>
+        <th>spawn_time</th>
+        <th>multipliers</th>
+        <th>weaknesses</th>
+        <th>prev_evolution</th>
+        <th>next_evolution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="!pokemones$">
+        <td colspan="8">
+          <div class="alert alert-primary text-center p-3 my-4" role="alert">
+            No records found.
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let pokemones of pokemones$ | async;let i=index">
+        <td>{{pokemones.id}}</td>
+        <td>{{pokemones.num}}</td>
+        <td>{{pokemones.name}}</td>
+        <td>{{pokemones.img}}</td>
+        <td>{{pokemones.type}}</td>
+        <td>{{pokemones.height}}</td>
+        <td>{{pokemones.weight}}</td>
+        <td>{{pokemones.candy}}</td>
+        <td>{{pokemones.candy_count}}</td>
+        <td>{{pokemones.egg}}</td>
+        <td>{{pokemones.spawn_chance}}</td>
+        <td>{{pokemones.avg_spawns}}</td>
+        <td>{{pokemones.spawn_time}}</td>
+        <td>{{pokemones.multipliers}}</td>
+        <td>{{pokemones.weaknesses}}</td>
+        <td><span *ngFor="let prevEval of pokemones.prev_evolution">{{prevEval.num}} , {{prevEval.name}}</span></td>
+        <td><span *ngFor="let nextEval of pokemones.next_evolution">{{nextEval.num}} , {{nextEval.name}}</span></td>
+        <td><img [src]="pokemones.img" alt="img1" class="img-thumbnail"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- footer -->
+<div class="footer">
+  <p>Footer</p>
+</div>
