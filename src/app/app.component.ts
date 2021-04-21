@@ -10,22 +10,32 @@ import { Pokemone } from 'src/models/pokemone';
 })
 export class AppComponent {
   title = 'GloryAutoTechTest';
-  public pokemones$: Observable<Pokemone[]>;
 
+  // observable of pokemone
+  public pokemones$: Observable<Pokemone[]>;
+  public txt:string;
   constructor(public pokemoneService: PokemoneService) {
+    this.txt='';
     this.getPokemones();
   }
 
+  /**
+   * get list of all pokemones
+   */
   public getPokemones() : void {
       this.pokemones$ = this.pokemoneService.getPokemones();
   }
 
-  public onSubmit(value: string) : void {
-    this.pokemones$ = this.pokemoneService.getFilterPokemones(value);
+  /**
+   * to search by pokemone name
+   * @param value string for input pokemone name
+   */
+  public searchPokemone(val: string) : void {
+    this.txt = val.charAt(0).toUpperCase() + val.slice(1);
+    this.pokemones$ = this.pokemoneService.getFilterPokemones(this.txt);
   }
 
   public weaknessFilter(event:any) : void {
-    alert(event.target.value);
     this.pokemones$ = this.pokemoneService.getWeaknessFilter(event.target.value);
   }
 
